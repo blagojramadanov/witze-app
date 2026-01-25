@@ -6,10 +6,10 @@
   box-sizing: border-box;
 }
 
-$primary-color: #ff7700;
-$secondary-color: #282e35;
+$primary-color: #ffff00;
+$secondary-color: #21252a;
 $text-color: #f9fafb;
-$accent-color: #178908;
+$accent-color: #f200ff;
 $border-radius: 0.5rem;
 $transition: 0.3s ease;
 
@@ -36,7 +36,7 @@ h1.heading {
 
 .current-joke,
 .saved-jokes {
-  background-color: #494d52;
+  background-color: #3a3c3f;
   padding: 1.5rem;
   border-radius: $border-radius;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -112,7 +112,7 @@ h1.heading {
   }
 
   .saved-joke {
-    background-color: #4b5563;
+    background-color: #78558227;
     padding: 1rem;
     border-radius: $border-radius;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
