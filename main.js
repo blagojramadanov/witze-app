@@ -1,4 +1,5 @@
 import { fetchJoke } from "./fetch";
+import { getSavedJokes, saveJoke, removeJoke } from "./storing.js";
 import "./styles/main.scss";
 
 const jokeText = document.querySelector(".current-joke__text");
@@ -6,17 +7,7 @@ const newJokeBtn = document.querySelector(".current-joke__create");
 const saveJokeBtn = document.querySelector(".current-joke__save");
 const savedJokesList = document.querySelector(".saved-jokes__list");
 
-async function loadJoke() {
-  const joke = await fetchJoke();
-  jokeText.innerText = joke;
-  saveJokeBtn.classList.remove("current-joke__save--nonscreen");
-}
-
-newJokeBtn.addEventListener("click", loadJoke);
-
-saveJokeBtn.addEventListener("click", () => {
-  const joke = jokeText.innerText;
-
+function renderSavedJoke(joke) {
   const div = document.createElement("div");
   div.className = "saved-joke";
   div.innerHTML = `
@@ -40,11 +31,34 @@ saveJokeBtn.addEventListener("click", () => {
       </svg>
     </button>
   `;
-
   savedJokesList.appendChild(div);
 
   const removeBtn = div.querySelector(".saved-joke__remove");
   removeBtn.addEventListener("click", () => {
+    removeJoke(joke);
     div.remove();
   });
+}
+
+function loadSavedJokes() {
+  const jokes = getSavedJokes();
+  jokes.forEach(renderSavedJoke);
+}
+
+async function loadJoke() {
+  const joke = await fetchJoke();
+  jokeText.innerText = joke;
+  saveJokeBtn.classList.remove("current-joke__save--nonscreen");
+}
+
+newJokeBtn.addEventListener("click", loadJoke);
+
+saveJokeBtn.addEventListener("click", () => {
+  const joke = jokeText.innerText;
+  if (!joke) return;
+
+  saveJoke(joke);
+  renderSavedJoke(joke);
 });
+
+loadSavedJokes();
