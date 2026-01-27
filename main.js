@@ -7,6 +7,17 @@ const newJokeBtn = document.querySelector(".current-joke__create");
 const saveJokeBtn = document.querySelector(".current-joke__save");
 const savedJokesList = document.querySelector(".saved-jokes__list");
 const categorySelect = document.getElementById("category");
+const themeToggle = document.querySelector(".theme-toggle");
+
+const body = document.body;
+themeToggle.addEventListener("click", () => {
+  body.classList.toggle("light-mode");
+
+  const icon = themeToggle.querySelector(".theme-toggle__icon");
+  icon.style.transform = body.classList.contains("light-mode")
+    ? "rotate(180deg)"
+    : "rotate(0deg)";
+});
 
 function renderSavedJoke(joke) {
   const div = document.createElement("div");

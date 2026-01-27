@@ -7,11 +7,82 @@
 }
 
 $primary-color: #ffff00;
+$remove-color: #08771b;
 $secondary-color: #21252a;
 $text-color: #f9fafb;
 $accent-color: #f200ff;
+$select-color: #08962c;
 $border-radius: 0.5rem;
 $transition: 0.3s ease;
+
+$light-bg: #ffffff;
+$light-text: #000000;
+$light-primary: #ff8000;
+$light-accent: #4f82bd;
+$light-secondary: #cccccc;
+$light-secondary: #cccccc;
+
+.theme-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  svg.theme-toggle__icon {
+    width: 2rem;
+    height: 2rem;
+    transition: all 0.3s ease;
+    color: $primary-color;
+  }
+}
+
+body.light-mode {
+  background-color: $light-bg;
+  color: $light-text;
+
+  h1.heading {
+    color: $light-primary;
+  }
+
+  .current-joke {
+    background-color: $light-secondary;
+    color: $light-text;
+
+    select,
+    button {
+      color: $light-text;
+      border-color: $light-primary;
+
+      &.current-joke__create {
+        color: $light-primary;
+        &:hover {
+          color: $light-accent;
+        }
+      }
+
+      &.current-joke__save {
+        color: $light-accent;
+        border-color: $light-accent;
+        &:hover {
+          color: $light-primary;
+        }
+      }
+    }
+  }
+
+  .saved-jokes__title {
+    color: $light-accent;
+  }
+
+  .saved-joke {
+    background-color: lighten($light-secondary, 20%);
+    color: $light-text;
+  }
+
+  .theme-toggle__icon {
+    color: $light-primary;
+  }
+}
 
 body {
   font-family: "Inter", sans-serif;
@@ -58,7 +129,7 @@ h1.heading {
     padding: 0.5rem;
     border-radius: $border-radius;
     border: 2px solid $primary-color;
-    background-color: $secondary-color;
+    background-color: $select-color;
     color: $text-color;
     font-weight: 600;
   }
@@ -132,7 +203,7 @@ h1.heading {
   &__remove {
     align-self: flex-end;
     background: transparent;
-    color: $primary-color;
+    color: $remove-color;
     cursor: pointer;
 
     &:hover {
