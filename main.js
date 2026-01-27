@@ -6,6 +6,7 @@ const jokeText = document.querySelector(".current-joke__text");
 const newJokeBtn = document.querySelector(".current-joke__create");
 const saveJokeBtn = document.querySelector(".current-joke__save");
 const savedJokesList = document.querySelector(".saved-jokes__list");
+const categorySelect = document.getElementById("category");
 
 function renderSavedJoke(joke) {
   const div = document.createElement("div");
@@ -46,10 +47,13 @@ function loadSavedJokes() {
 }
 
 async function loadJoke() {
-  const joke = await fetchJoke();
+  const selectedCategory = categorySelect.value;
+  const joke = await fetchJoke(selectedCategory);
   jokeText.innerText = joke;
   saveJokeBtn.classList.remove("current-joke__save--nonscreen");
 }
+
+newJokeBtn.addEventListener("click", loadJoke);
 
 newJokeBtn.addEventListener("click", loadJoke);
 
