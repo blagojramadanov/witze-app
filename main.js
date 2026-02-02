@@ -9,14 +9,15 @@ const savedJokesList = document.querySelector(".saved-jokes__list");
 const categorySelect = document.getElementById("category");
 const themeToggle = document.querySelector(".theme-toggle");
 
-const body = document.body;
 themeToggle.addEventListener("click", () => {
-  body.classList.toggle("light-mode");
+  document.body.classList.toggle("light-mode");
+});
 
-  const icon = themeToggle.querySelector(".theme-toggle__icon");
-  icon.style.transform = body.classList.contains("light-mode")
-    ? "rotate(180deg)"
-    : "rotate(0deg)";
+let userSelectedCategory = false;
+
+categorySelect.value = "";
+categorySelect.addEventListener("change", () => {
+  userSelectedCategory = true;
 });
 
 function renderSavedJoke(joke) {
@@ -44,36 +45,33 @@ function renderSavedJoke(joke) {
     </button>
   `;
   savedJokesList.appendChild(div);
-
-  const removeBtn = div.querySelector(".saved-joke__remove");
-  removeBtn.addEventListener("click", () => {
+  div.querySelector(".saved-joke__remove").addEventListener("click", () => {
     removeJoke(joke);
     div.remove();
   });
 }
 
 function loadSavedJokes() {
-  const jokes = getSavedJokes();
-  jokes.forEach(renderSavedJoke);
+  getSavedJokes().forEach(renderSavedJoke);
 }
 
 async function loadJoke() {
-  const selectedCategory = categorySelect.value;
-  const joke = await fetchJoke(selectedCategory);
+  const category = userSelectedCategory ? categorySelect.value : undefined;
+  const joke = await fetchJoke(category);
   jokeText.innerText = joke;
   saveJokeBtn.classList.remove("current-joke__save--nonscreen");
 }
 
 newJokeBtn.addEventListener("click", loadJoke);
 
-newJokeBtn.addEventListener("click", loadJoke);
-
 saveJokeBtn.addEventListener("click", () => {
   const joke = jokeText.innerText;
   if (!joke) return;
-
-  saveJoke(joke);
-  renderSavedJoke(joke);
+  const savedJokes = getSavedJokes();
+  if (!savedJokes.includes(joke)) {
+    saveJoke(joke);
+    renderSavedJoke(joke);
+  }
 });
 
 loadSavedJokes();

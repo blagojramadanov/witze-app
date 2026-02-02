@@ -14,7 +14,7 @@ export function saveJoke(joke) {
   const jokes = getSavedJokes();
   if (!jokes.includes(joke)) {
     jokes.push(joke);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(jokes));
+    localStorage.setItem("savedJokes", JSON.stringify(jokes));
   }
 }
 
